@@ -1,8 +1,6 @@
 import tkinter as tk
 import re
 from fsm_logic import FiniteStateMachine  # Asegúrate de tener fsm_logic.py en el mismo directorio
-import networkx as nx
-import matplotlib.pyplot as plt
 
 # --- Editor de código con números de línea y resaltado básico ---
 class CodeEditorWithLineNumbers(tk.Frame):
@@ -22,7 +20,7 @@ class CodeEditorWithLineNumbers(tk.Frame):
         self.v_scroll = tk.Scrollbar(self, orient="vertical", command=self.text.yview)
         self.v_scroll.pack(side="right", fill="y")
         self.text.configure(yscrollcommand=self.v_scroll.set)
-        # Vinculación de eventos para actualizar la numeración y el resaltado
+        # Vinculación de eventos para actualizar numeración y resaltado
         self.text.bind("<<Change>>", self._on_change)
         self.text.bind("<Configure>", self._on_change)
         self.text.bind("<KeyRelease>", self._on_change)
@@ -72,8 +70,8 @@ class CodeEditorWithLineNumbers(tk.Frame):
         self.text.tag_remove("keyword", "1.0", "end")
         keywords = ["def", "class", "import", "from", "as", "if", "elif", "else",
                     "for", "while", "try", "except", "finally", "with", "return",
-                    "yield", "pass", "break", "continue", "and", "or", "not", "in", "is",
-                    "lambda", "True", "False", "None"]
+                    "yield", "pass", "break", "continue", "and", "or", "not", "in",
+                    "is", "lambda", "True", "False", "None"]
         for kw in keywords:
             start_index = "1.0"
             while True:
@@ -114,12 +112,9 @@ class FSMApp:
         self.button_reset = tk.Button(sim_frame, text="Reiniciar", command=self.reset_simulation,
                                       font=("Arial", 12), bg="#f44336", fg="white")
         self.button_reset.pack(pady=5)
-        
-        # Nuevo botón: Copiar Salida
         self.button_copy = tk.Button(sim_frame, text="Copiar Salida", command=self.copy_output,
-                                      font=("Arial", 12), bg="#009688", fg="white")
+                                     font=("Arial", 12), bg="#009688", fg="white")
         self.button_copy.pack(pady=5)
-        
         self.output_label = tk.Label(sim_frame, text="", font=("Arial", 12),
                                      bg="#3C3F41", fg="white", justify="left")
         self.output_label.pack(pady=10)
@@ -133,7 +128,7 @@ class FSMApp:
         self.code_editor = CodeEditorWithLineNumbers(code_frame)
         self.code_editor.pack(padx=10, pady=5, fill="both", expand=True)
 
-        # Código por defecto (puedes modificarlo en el editor)
+        # Código por defecto en el editor
         self.default_code = '''# Máquina para multiplicar por 2 (leer LSB-first)
 states = ["q0", "q1"]
 alphabet = ["0", "1"]
@@ -175,11 +170,9 @@ initial_state = "q0"
         initial_state = "q0"
         self.fsm = FiniteStateMachine(states, alphabet, transitions, initial_state, outputs)
 
-        # Vincular actualización del resaltado del editor
         self.code_editor.text.bind("<KeyRelease>", self.handle_keyrelease)
 
     def copy_output(self):
-        # Método para copiar la salida al portapapeles
         output_text = self.output_label.cget("text")
         if output_text:
             self.root.clipboard_clear()
@@ -197,8 +190,8 @@ initial_state = "q0"
         text_widget.tag_remove("keyword", "1.0", "end")
         keywords = ["def", "class", "import", "from", "as", "if", "elif", "else",
                     "for", "while", "try", "except", "finally", "with", "return",
-                    "yield", "pass", "break", "continue", "and", "or", "not", "in", "is",
-                    "lambda", "True", "False", "None"]
+                    "yield", "pass", "break", "continue", "and", "or", "not", "in",
+                    "is", "lambda", "True", "False", "None"]
         for kw in keywords:
             start_index = "1.0"
             while True:
@@ -245,7 +238,8 @@ initial_state = "q0"
             required_vars = ["states", "alphabet", "transitions", "outputs", "initial_state"]
             if not all(var in local_vars for var in required_vars):
                 from tkinter import messagebox
-                messagebox.showerror("Error", "El código debe definir: states, alphabet, transitions, outputs, initial_state")
+                messagebox.showerror("Error", 
+                    "El código debe definir: states, alphabet, transitions, outputs, initial_state")
                 return
             states = local_vars["states"]
             alphabet = local_vars["alphabet"]
@@ -269,7 +263,8 @@ initial_state = "q0"
             required_vars = ["states", "alphabet", "transitions", "outputs", "initial_state"]
             if not all(var in local_vars for var in required_vars):
                 from tkinter import messagebox
-                messagebox.showerror("Error", "El código default no define: states, alphabet, transitions, outputs, initial_state")
+                messagebox.showerror("Error", 
+                    "El código default no define: states, alphabet, transitions, outputs, initial_state")
                 return
             states = local_vars["states"]
             alphabet = local_vars["alphabet"]

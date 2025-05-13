@@ -1,5 +1,5 @@
-from fsm_gui import FSMApp
 import tkinter as tk
+from fsm_gui import FSMApp
 
 def main():
     root = tk.Tk()
