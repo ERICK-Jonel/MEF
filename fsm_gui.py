@@ -10,11 +10,11 @@ class CodeEditorWithLineNumbers(tk.Frame):
         super().__init__(master, **kwargs)
         # Área de números de línea
         self.linenumbers = tk.Text(self, width=4, padx=4, takefocus=0, border=0,
-                                    background="#2B2B2B", foreground="#75715E", state="disabled",
-                                    font=("Courier", 12))
+                                    background="#2B2B2B", foreground="#75715E",
+                                    state="disabled", font=("Courier", 12))
         self.linenumbers.pack(side="left", fill="y")
         # Área principal de edición de código
-        self.text = tk.Text(self, wrap="none", undo=True, 
+        self.text = tk.Text(self, wrap="none", undo=True,
                             background="#272822", foreground="#F8F8F2",
                             insertbackground="#F8F8F2", font=("Courier", 12))
         self.text.pack(side="right", fill="both", expand=True)
@@ -38,14 +38,14 @@ class CodeEditorWithLineNumbers(tk.Frame):
         self.text.bind("<Control-V>", self.custom_paste)
         self._update_line_numbers()
         self.setup_highlight_tags()
-    
+
     def setup_highlight_tags(self):
         self.text.tag_configure("keyword", foreground="#66d9ef")
-    
+
     def select_all(self, event):
         self.text.tag_add("sel", "1.0", "end")
         return "break"
-    
+
     def custom_paste(self, event):
         try:
             sel_start = self.text.index("sel.first")
@@ -55,11 +55,11 @@ class CodeEditorWithLineNumbers(tk.Frame):
         except tk.TclError:
             self.text.event_generate("<<Paste>>")
         return "break"
-    
+
     def _on_change(self, event=None):
         self._update_line_numbers()
         self.highlight_syntax()
-    
+
     def _update_line_numbers(self):
         self.linenumbers.config(state="normal")
         self.linenumbers.delete("1.0", "end")
@@ -67,7 +67,7 @@ class CodeEditorWithLineNumbers(tk.Frame):
         line_numbers_string = "\n".join(str(i) for i in range(1, line_count + 1))
         self.linenumbers.insert("1.0", line_numbers_string)
         self.linenumbers.config(state="disabled")
-    
+
     def highlight_syntax(self, event=None):
         self.text.tag_remove("keyword", "1.0", "end")
         keywords = ['def', 'class', 'import', 'from', 'as', 'if', 'elif', 'else',
@@ -85,20 +85,21 @@ class CodeEditorWithLineNumbers(tk.Frame):
                 start_index = end_pos
         self.text.tag_configure("keyword", foreground="#66d9ef")
 
-
 # --- Clase de la Interfaz Principal ---
 class FSMApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Simulador de Máquina de Estado Finito (MEF)")
-        self.root.geometry("900x800")
+        # Geometría inicial de 1200x900 y mínimo para que no se reduzca más
+        self.root.geometry("1200x900")
+        self.root.minsize(1200, 900)
         self.root.configure(bg="#3C3F41")
         self.root.bind("<Control-r>", lambda event: self.reset_simulation())
         self.root.bind("<Control-R>", lambda event: self.reset_simulation())
 
-        # Sección de simulación (usamos grid para un posicionamiento preciso)
+        # Sección de simulación
         sim_frame = tk.Frame(root, bg="#3C3F41")
-        sim_frame.pack(pady=20, padx=20)
+        sim_frame.pack(pady=20, padx=10)
 
         self.label = tk.Label(sim_frame, text="Ingrese la secuencia binaria (0s y 1s):",
                               font=("Arial", 14, "bold"), bg="#3C3F41", fg="white")
@@ -109,11 +110,11 @@ class FSMApp:
         self.entry.grid(row=1, column=0, columnspan=2, pady=10)
         self.entry.bind("<Control-Return>", lambda event: self.run_simulation())
 
-        btn_width = 15  # ancho uniforme para los botones
+        btn_width = 15  # Ancho uniforme para los botones
 
         self.button_run = tk.Button(sim_frame, text="Ejecutar", command=self.run_simulation,
-                                     font=("Arial", 12, "bold"), bg="#4CAF50", fg="white", relief="flat", bd=4,
-                                     width=btn_width)
+                                    font=("Arial", 12, "bold"), bg="#4CAF50", fg="white",
+                                    relief="flat", bd=4, width=btn_width)
         self.button_run.grid(row=2, column=0, padx=5, pady=5)
         self.button_run.original_bg = "#4CAF50"
         self.button_run.hover_bg = "#66BB6A"
@@ -121,8 +122,8 @@ class FSMApp:
         self.button_run.bind("<Leave>", self.on_leave)
 
         self.button_graph = tk.Button(sim_frame, text="Ver Digrafo", command=self.show_graph,
-                                       font=("Arial", 12, "bold"), bg="#2196F3", fg="white", relief="flat", bd=4,
-                                       width=btn_width)
+                                      font=("Arial", 12, "bold"), bg="#2196F3", fg="white",
+                                      relief="flat", bd=4, width=btn_width)
         self.button_graph.grid(row=2, column=1, padx=5, pady=5)
         self.button_graph.original_bg = "#2196F3"
         self.button_graph.hover_bg = "#42A5F5"
@@ -130,8 +131,8 @@ class FSMApp:
         self.button_graph.bind("<Leave>", self.on_leave)
 
         self.button_reset = tk.Button(sim_frame, text="Reiniciar", command=self.reset_simulation,
-                                       font=("Arial", 12, "bold"), bg="#f44336", fg="white", relief="flat", bd=4,
-                                       width=btn_width)
+                                      font=("Arial", 12, "bold"), bg="#f44336", fg="white",
+                                      relief="flat", bd=4, width=btn_width)
         self.button_reset.grid(row=3, column=0, padx=5, pady=5)
         self.button_reset.original_bg = "#f44336"
         self.button_reset.hover_bg = "#EF5350"
@@ -139,8 +140,8 @@ class FSMApp:
         self.button_reset.bind("<Leave>", self.on_leave)
 
         self.button_copy = tk.Button(sim_frame, text="Copiar Salida", command=self.copy_output,
-                                      font=("Arial", 12, "bold"), bg="#009688", fg="white", relief="flat", bd=4,
-                                      width=btn_width)
+                                     font=("Arial", 12, "bold"), bg="#009688", fg="white",
+                                     relief="flat", bd=4, width=btn_width)
         self.button_copy.grid(row=3, column=1, padx=5, pady=5)
         self.button_copy.original_bg = "#009688"
         self.button_copy.hover_bg = "#26A69A"
@@ -153,14 +154,13 @@ class FSMApp:
 
         # Editor de código para definir la máquina de estados
         code_frame = tk.Frame(root, bg="#3C3F41")
-        code_frame.pack(pady=10, padx=20, fill="both", expand=True)
-
+        code_frame.pack(pady=10, padx=10, fill="both", expand=True)
         self.code_editor_label = tk.Label(code_frame, text="Editor de Código (defina su máquina):",
                                           font=("Arial", 14, "bold"), bg="#3C3F41", fg="white")
         self.code_editor_label.pack(pady=5)
-
+        # Se elimina ancho fijo y se reduce el padx a 5 para aprovechar el espacio
         self.code_editor = CodeEditorWithLineNumbers(code_frame, bg="#272822")
-        self.code_editor.pack(padx=10, pady=5, fill="both", expand=True)
+        self.code_editor.pack(padx=5, pady=5, anchor="n")
 
         self.default_code = """# Máquina para multiplicar por 2 (leer LSB-first)
 states = ["q0", "q1"]
@@ -182,13 +182,13 @@ initial_state = "q0"
         self.code_editor.text.insert("1.0", self.default_code)
         self.highlight_syntax()
         self.button_load_machine = tk.Button(code_frame, text="Cargar Máquina", command=self.load_machine,
-                                               font=("Arial", 12, "bold"), bg="#9C27B0", fg="white", relief="flat", bd=4)
+                                               font=("Arial", 12, "bold"), bg="#9C27B0", fg="white",
+                                               relief="flat", bd=4)
         self.button_load_machine.pack(pady=5)
-
         self.button_reset_default = tk.Button(code_frame, text="Restaurar a Default", command=self.reset_to_default,
-                                                font=("Arial", 12, "bold"), bg="#FF9800", fg="white", relief="flat", bd=4)
+                                                font=("Arial", 12, "bold"), bg="#FF9800", fg="white",
+                                                relief="flat", bd=4)
         self.button_reset_default.pack(pady=5)
-
         # Configuración inicial de la máquina por defecto (multiplicación por 2)
         states = ["q0", "q1"]
         alphabet = ["0", "1"]
