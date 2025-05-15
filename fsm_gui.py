@@ -156,6 +156,8 @@ initial_state = "q0"
                                                 font=("Arial", 12), bg="#FF9800", fg="white")
         self.button_reset_default.pack(pady=5)
 
+
+
         # Configuración inicial de la máquina por defecto (multiplicación por 2)
         states = ["q0", "q1"]
         alphabet = ["0", "1"]
@@ -169,6 +171,9 @@ initial_state = "q0"
         }
         initial_state = "q0"
         self.fsm = FiniteStateMachine(states, alphabet, transitions, initial_state, outputs)
+
+
+
 
         self.code_editor.text.bind("<KeyRelease>", self.handle_keyrelease)
 
