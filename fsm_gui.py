@@ -233,7 +233,7 @@ class FSMApp:
         self.code_editor.pack(padx=5, pady=5, anchor="n")
         
         # Código default para la máquina de estados (Ejercicio 1)
-        self.default_code = """# Máquina para reconocer tokens (Ejercicio 1)
+        self.default_code = """# ejercicio de ejemplo
 states = ["q0", "q1"]
 alphabet = ["0", "1"]
 
