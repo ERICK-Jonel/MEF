@@ -234,38 +234,23 @@ class FSMApp:
         
         # Código default para la máquina de estados (Ejercicio 1)
         self.default_code = """# Máquina para reconocer tokens (Ejercicio 1)
-states = ["q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11"]
-alphabet = ["i", "f", "e", "l", "s", "w", "h", " "]
+states = ["q0", "q1"]
+alphabet = ["0", "1"]
+
 transitions = {
-    ("q0", "i"): "q1",
-    ("q0", "e"): "q3",
-    ("q0", "w"): "q7",
-    ("q0", " "): "q0",
-    ("q1", "f"): "q2",
-    ("q1", " "): "q0",
-    ("q2", " "): "q0",
-    ("q3", "l"): "q4",
-    ("q3", " "): "q0",
-    ("q4", "s"): "q5",
-    ("q4", " "): "q0",
-    ("q5", "e"): "q6",
-    ("q5", " "): "q0",
-    ("q6", " "): "q0",
-    ("q7", "h"): "q8",
-    ("q7", " "): "q0",
-    ("q8", "i"): "q9",
-    ("q8", " "): "q0",
-    ("q9", "l"): "q10",
-    ("q9", " "): "q0",
-    ("q10", "e"): "q11",
-    ("q10", " "): "q0",
-    ("q11", " "): "q0"
+    ("q0", "0"): "q0",
+    ("q0", "1"): "q1",
+    ("q1", "0"): "q1",
+    ("q1", "1"): "q0"
 }
+
 outputs = {
-    ("q2", " "): "TOKEN_IF",
-    ("q6", " "): "TOKEN_ELSE",
-    ("q11", " "): "TOKEN_WHILE"
+    ("q0", "0"): "0",
+    ("q0", "1"): "1",
+    ("q1", "0"): "1",
+    ("q1", "1"): "0"
 }
+
 initial_state = "q0"
 """
         self.code_editor.text.insert("1.0", self.default_code)
