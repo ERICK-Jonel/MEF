@@ -5,7 +5,7 @@ digraph {
 	q0 [label=q0 color=red fillcolor="#FF5733" style=filled]
 	q1 [label=q1 color=blue fillcolor="#A0CBE2" style=filled]
 	q0 -> q0 [label="0/0"]
-	q0 -> q1 [label="1/1"]
-	q1 -> q1 [label="0/0"]
-	q1 -> q0 [label="1/1"]
+	q0 -> q1 [label="1/0"]
+	q1 -> q0 [label="0/1"]
+	q1 -> q1 [label="1/1"]
 }

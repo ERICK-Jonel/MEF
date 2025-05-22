@@ -4,12 +4,13 @@ class FiniteStateMachine:
     def __init__(self, states, alphabet, transitions, initial_state, outputs):
         """
         Inicializa la máquina de estados finitos.
+        
         Parámetros:
-          - states: lista de estados.
-          - alphabet: lista de símbolos de entrada.
-          - transitions: diccionario con claves (estado, símbolo) y valor: estado siguiente.
-          - outputs: diccionario con claves (estado, símbolo) y valor: símbolo de salida.
-          - initial_state: estado inicial.
+        - states: lista de estados.
+        - alphabet: lista de símbolos de entrada.
+        - transitions: diccionario con claves (estado, símbolo) y valor: estado siguiente.
+        - outputs: diccionario con claves (estado, símbolo) y valor: símbolo de salida.
+        - initial_state: estado inicial.
         """
         self.states = states
         self.alphabet = alphabet
@@ -22,6 +23,9 @@ class FiniteStateMachine:
         """
         Procesa una secuencia de entrada (lista de símbolos) y retorna una tupla:
         (lista de estados recorridos, lista de salidas generadas).
+
+        Se utiliza .get(key, "") para obtener una salida por defecto (cadena vacía)
+        en caso de que no esté definida.
         """
         state_history = [self.initial_state]
         output_sequence = []
@@ -29,7 +33,8 @@ class FiniteStateMachine:
             key = (self.current_state, inp)
             if key in self.transitions:
                 next_state = self.transitions[key]
-                output = self.outputs[key]
+                # Usamos .get(key, "") para evitar KeyError si no hay salida definida.
+                output = self.outputs.get(key, "")
                 state_history.append(next_state)
                 output_sequence.append(output)
                 self.current_state = next_state
@@ -40,22 +45,24 @@ class FiniteStateMachine:
     def draw_graph(self):
         """
         Dibuja el diagrama de la máquina de estados finitos utilizando Graphviz.
-        Se ajustan las dimensiones y resolución para obtener una imagen de alta calidad.
+        Se utiliza .get() para obtener la salida asociada a cada transición (o cadena vacía
+        por defecto) y evitar errores.
         """
         dot = graphviz.Digraph(comment='Máquina de Estados Finita')
-        dot.attr(rankdir='LR')  # Disposición de izquierda a derecha
+        dot.attr(rankdir='LR')  # Diseño de izquierda a derecha
+        dot.attr(size="16,9!", dpi="150")  # Dimensiones y resolución
 
-        # Ajusta las dimensiones (16x9 pulgadas forzadas) y la resolución (DPI)
-        dot.attr(size="16,9!", dpi="150")
-        
+        # Definir nodos con colores: el estado inicial en rojo y los demás en azul.
         for state in self.states:
             if state == self.initial_state:
                 dot.node(state, state, color='red', style='filled', fillcolor='#FF5733')
             else:
                 dot.node(state, state, color='blue', style='filled', fillcolor='#A0CBE2')
 
+        # Definir aristas de acuerdo a las transiciones.
         for (state, inp), next_state in self.transitions.items():
-            label = f"{inp}/{self.outputs[(state, inp)]}"
+            # Si no se define salida para una transición, se usará "".
+            label = f"{inp}/{self.outputs.get((state, inp), '')}"
             dot.edge(state, next_state, label=label)
-
+        
         dot.render('fsm_diagram', view=True, format='png')
