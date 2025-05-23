@@ -10,7 +10,6 @@ if __name__ == "__main__":
     main()
 
 """
-
 # Máquina para reconocer la palabra "if" delimitada (patrón: _if_)
 # Esta máquina opera sobre un alfabeto que contiene (al menos) las letras minúsculas y el espacio.
 #
