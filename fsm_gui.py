@@ -148,9 +148,10 @@ class FSMApp:
         
         # Etiqueta para indicar la entrada
         self.label = tk.Label(sim_frame,
-                              text="Ingrese la secuencia:",
-                              font=("Arial", 14, "bold"),
-                              bg="#3C3F41", fg="white")
+                            text="Ingrese la secuencia:",
+                            font=("Arial", 14, "bold"),
+                            bg="#3C3F41", fg="white")
+                            
         self.label.grid(row=0, column=0, columnspan=2, pady=10)
         
         # Campo de entrada para la secuencia (no se restringe a "0" o "1")
@@ -213,8 +214,9 @@ class FSMApp:
         
         # Etiqueta para mostrar la salida del simulador
         self.output_label = tk.Label(sim_frame, text="",
-                                     font=("Arial", 12),
-                                     bg="#3C3F41", fg="white", justify="left")
+                                    font=("Arial", 12),
+                                    bg="#3C3F41", fg="white", justify="left",
+                                    wraplength=600)
         self.output_label.grid(row=4, column=0, columnspan=2, pady=10)
         
         # --- Sección del Editor de Código ---
