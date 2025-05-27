@@ -42,8 +42,6 @@ class FiniteStateMachine:
                 raise ValueError(f"Entrada '{inp}' no válida desde el estado '{self.current_state}'")
         return state_history, output_sequence
 
-
-
     def draw_graph(self):
         """
         Dibuja el diagrama de la máquina de estados finitos utilizando Graphviz.
