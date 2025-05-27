@@ -1,10 +1,10 @@
 
 
-# Proyecto MEF (Máquinas de Estados Finitos)
+**Proyecto MEF (Máquinas de Estados Finitos)**
 
 Este proyecto es una herramienta modular para definir, ejecutar y visualizar máquinas de estados finitos. Está dirigido a desarrolladores con conocimientos intermedios en Python y en teoría de autómatas, especialmente pensado para programadores de la Universidad UCLA. Aunque se encuentra en fase de desarrollo, el sistema es completamente funcional.
 
-## Objetivos
+**Objetivos**
 
 - **Definir y ejecutar máquinas de estados:** Permite modelar estados y transiciones de forma flexible.
 - **Visualización e integración:** Incorpora módulos para la generación de diagramas y una interfaz gráfica básica.
