@@ -14,8 +14,7 @@ Este proyecto es una herramienta modular para definir, ejecutar y visualizar má
 
 La distribución de archivos es la siguiente:
 
-```
-config.py  
+```config.py  
 env/  
 fsm_diagram/  
 fsm_diagram.png  
@@ -26,7 +25,6 @@ main.py
 __pycache__/  
 requirements.txt  
 scr/
-```
 
 > **Nota:** La carpeta `scr` contiene algunas imágenes y fragmentos de código no esenciales para la funcionalidad principal.
 
