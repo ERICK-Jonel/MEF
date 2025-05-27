@@ -19,7 +19,7 @@
 #       que no pueden formar "if". Al leer un espacio, se termina la palabra rechazada y se reinicia a q1.
 #
 # Nota: Se asume que al finalizar la entrada se simula la recepción de un espacio para que se valide la palabra.
-#
+
 
 # Definición del alfabeto: (mínimo se usan las letras necesarias y el espacio)
 alphabet = list("abcdefghijklmnopqrstuvwxyz ")
