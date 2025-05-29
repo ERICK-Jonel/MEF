@@ -29,6 +29,7 @@ class FiniteStateMachine:
         """
         state_history = [self.initial_state]
         output_sequence = []
+        #                                      input_sequence = list(self.entry.get())
         for inp in input_sequence:
             key = (self.current_state, inp)
             if key in self.transitions:
