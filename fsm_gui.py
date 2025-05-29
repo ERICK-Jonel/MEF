@@ -278,6 +278,7 @@ initial_state = "q0"
         #      Integración de la Lógica de la Máquina de Estados Finitos (MEF)       #
         #  Aquí se crea la instancia de la FSM usando parámetros default            #
         ############################################################################
+
         states = ["q0", "q1"]
         alphabet = ["0", "1"]
         transitions = {

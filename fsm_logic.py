@@ -32,6 +32,7 @@ class FiniteStateMachine:
         for inp in input_sequence:
             key = (self.current_state, inp)
             if key in self.transitions:
+                #ce diccionario 
                 next_state = self.transitions[key]
                 # Usamos .get(key, "") para evitar KeyError si no hay salida definida.
                 output = self.outputs.get(key, "")
